@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markers and Categories — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html" class="active">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Markers and Categories</h1>
+<p>A marker is a <code>MapMarker</code> component on a world object. It registers itself with the shared registry on enable and unregisters on disable or destroy — you never add or remove icons by hand.</p>
+<figure class="doc-shot"><img src="images/markers-reveal.jpg" alt="Atlas Tour board detail with the Reveal control for a hidden marker"><figcaption>Atlas Tour detail: a hidden marker holds no icon until it is revealed — the board shows the Reveal control for the hidden cache.</figcaption></figure>
+<h2>The marker fields</h2>
+<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody><tr><td><code>CategoryId</code></td><td>Which category draws it.</td></tr><tr><td><code>Label</code></td><td>Shown on the world map when the marker is selected.</td></tr><tr><td><code>VisibilityRule</code></td><td><code>Always</code>, <code>WhenExplored</code>, <code>WhenVisible</code>, or <code>Manual</code>.</td></tr><tr><td><code>RevealsFog</code> + <code>RevealRadius</code></td><td>This marker lifts fog around itself (the player).</td></tr><tr><td><code>TrackHeading</code></td><td>The icon rotates with the object&#x27;s facing.</td></tr></tbody></table>
+<h2>Visibility rules</h2>
+<table><thead><tr><th>Rule</th><th>Shown when</th></tr></thead><tbody><tr><td><strong>Always</strong></td><td>Always. The player marker&#x27;s rule.</td></tr><tr><td><strong>When Explored</strong></td><td>Its fog cell has been explored at least once. Places, objectives.</td></tr><tr><td><strong>When Visible</strong></td><td>Its fog cell is inside a revealer&#x27;s radius right now. Creatures.</td></tr><tr><td><strong>Manual</strong></td><td>Hidden until your code calls <code>Reveal()</code> on it. Secrets.</td></tr></tbody></table>
+<p>The evaluation is shared by both views: a marker failing its rule is hidden on the minimap and the world map identically. With fog off in the settings, fog-based rules read visible.</p>
+<h2>Categories</h2>
+<p>Categories live in the settings asset and decide how a marker looks and where it appears:</p>
+<ul><li><strong>Icon</strong> sprite and <strong>Tint</strong> color.</li><li><strong>Show on Minimap</strong> / <strong>Show on World Map</strong> — per-view visibility, separate from the fog rules.</li><li><strong>Icon Scale</strong> — per-category size (the starter Objective category is 1.25, Player 1.2).</li></ul>
+<p>The five starter categories:</p>
+<table><thead><tr><th>Id</th><th>Name</th><th>Used for</th></tr></thead><tbody><tr><td><code>player</code></td><td>Player</td><td>The followed character (rule <em>Always</em>, reveals fog).</td></tr><tr><td><code>npc</code></td><td>Character</td><td>Wandering creatures (rule <em>When Visible</em>).</td></tr><tr><td><code>poi</code></td><td>Point of Interest</td><td>Places (rule <em>When Explored</em>).</td></tr><tr><td><code>objective</code></td><td>Objective</td><td>The tracked goal (quest hooks, <a href="quest-hooks.html">Quest Hooks</a>).</td></tr><tr><td><code>default</code></td><td>Marker</td><td>The fallback. An unknown category id resolves here — never null, never an exception in play.</td></tr></tbody></table>
+<p>Edit categories in the settings asset (the window&#x27;s Categories section opens it in the Inspector). Discovery — the first fog tick that explores a gated marker&#x27;s cell — raises the <code>MarkerDiscovered</code> event exactly once per marker; see <a href="quest-hooks.html">Quest Hooks</a>.</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

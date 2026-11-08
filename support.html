@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting and Support — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html" class="active">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Troubleshooting and Support</h1>
+<h2>First step for almost everything</h2>
+<p>Run <strong>Verify Install</strong> (the window&#x27;s Verify section, or <strong>Tools &gt; ByteLura &gt; MiniAtlas Pro &gt; Verify Install</strong>). Its five lines check the runtime assembly, exercise a map in memory (projection center, fog reveal, fog save/load round-trip), and confirm settings, sample and documentation are present. If a line fails, its wording is the diagnosis.</p>
+<h2>Common questions</h2>
+<p><strong>The window says &quot;No map settings yet.&quot;</strong> Setup has not run in this project. Click <strong>Run Setup</strong> — it creates the settings asset and starter art, and never touches your scene.</p>
+<p><strong>My map looks stretched.</strong> The background aspect and the bounds aspect disagree. The window&#x27;s Map Setup section prints both numbers and says so in plain words. Resize the image, or re-fit the bounds with <strong>Fit Bounds to Selected</strong>.</p>
+<p><strong>A marker does not appear on the map.</strong> Work through its rule: <em>When Explored</em> and <em>When Visible</em> markers stay hidden while their fog cell is unexplored; <em>Manual</em> markers stay hidden until <code>Reveal()</code> is called. Then check the category&#x27;s per-view flags — a category can be off on the minimap and on on the world map, or the reverse. An unknown category id is never the cause: it falls back to the default category.</p>
+<p><strong>The world map shows places I have not visited.</strong> It cannot — both views share the same rule evaluation. What you are seeing is explored fog: a place reads explored once any revealer&#x27;s radius has covered its cell, even briefly. That is the designed meaning of <em>Explored</em>.</p>
+<p><strong>Fog from an old save will not load.</strong> The load is refused when the grid shape or cell size differs from the current map&#x27;s fog — by design, and the grid is left untouched. Rebuild the map with the settings the data was saved under, or start the fog fresh for the new resolution.</p>
+<p><strong>The objective arrow is missing.</strong> The arrow shows only while an objective is tracked (<code>MiniAtlasApi.SetObjective</code>) and off-view, and only when the minimap&#x27;s <code>ShowObjectiveArrow</code> is on. Once the objective enters the minimap&#x27;s view, the arrow hides and the objective&#x27;s own icon shows — that hand-off is the design.</p>
+<p><strong>The Atlas Tour scene did not open.</strong> The sample&#x27;s code may still be compiling after import; the window retries on its own once the editor settles. If it still has not opened, use the sample&#x27;s own menu item: <strong>Tools &gt; ByteLura &gt; MiniAtlas Pro &gt; Build Atlas Tour Scene</strong>.</p>
+<h2>Support</h2>
+<p>Support: bytelura@gmail.com — or the <strong>Support</strong> quick action in the home window, which opens the ByteLura publisher page (<a href="https://assetstore.unity.com/publishers/102656).">https://assetstore.unity.com/publishers/102656).</a> Include your Unity version and the Verify Install lines; they answer most questions before the second email.</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

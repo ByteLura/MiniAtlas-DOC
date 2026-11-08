@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Summary — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html" class="active">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>API Summary</h1>
+<p>The public surface of <code>ByteLura.MiniAtlas</code>. The full reference ships in the package (<code>Documentation~/ApiReference.md</code>); this is the short map of it.</p>
+<h2>The map</h2>
+<ul><li><strong><code>MiniAtlasMap</code></strong> (component) — owns a map: <code>Settings</code>, <code>Projection</code>, <code>Fog</code>, <code>HasFog</code>, <code>RebuildFromSettings()</code>, <code>TickFog()</code>, <code>FogChanged</code> event. <code>MiniAtlasRuntime.ActiveMap</code> is the currently enabled map; <code>MiniAtlasRuntime.Registry</code> is the shared marker registry.</li><li><strong><code>MapSettings</code></strong> (ScriptableObject) — <code>BoundsCenter</code>, <code>BoundsSize</code>, <code>Plane</code> (XZ / XY), <code>Background</code>, <code>FogEnabled</code>, <code>FogCellSize</code>, <code>FogExploredAlpha</code>, <code>FogColor</code>, <code>Categories</code>, <code>DefaultCategoryId</code>; <code>CreateProjection()</code>, <code>CreateFog()</code>, <code>GetCategory(id)</code> (never null).</li><li><strong><code>MapProjection</code></strong> — <code>WorldToNormalized</code> (unclamped), <code>WorldToNormalizedClamped</code>, <code>NormalizedToWorld</code>, <code>Contains</code>, <code>Aspect</code>.</li></ul>
+<h2>Markers</h2>
+<ul><li><strong><code>MapMarker</code></strong> (component) — <code>CategoryId</code>, <code>Label</code>, <code>VisibilityRule</code> (Always / WhenExplored / WhenVisible / Manual), <code>RevealsFog</code> + <code>RevealRadius</code>, <code>TrackHeading</code>, <code>Reveal()</code>, <code>IsObjective</code>, <code>Changed</code> event. Registers on enable, unregisters on disable.</li><li><strong><code>MarkerRuleEvaluator.IsVisible(marker, fog)</code></strong> — the shared rule evaluation both views use; a null fog reads fog rules visible.</li></ul>
+<h2>Quest hooks — <code>MiniAtlasApi</code></h2>
+<ul><li><code>SetObjective(marker)</code> / <code>ClearObjective()</code> / <code>TrackedObjective</code></li><li><code>RevealMarker(marker)</code></li><li>Events: <code>MarkerDiscovered</code> (exactly once per marker), <code>MarkerSelected</code>, <code>ObjectiveChanged</code></li><li><code>TryFindMarker(categoryId, out marker)</code></li></ul>
+<h2>Fog — <code>FogOfWar</code> (via <code>map.Fog</code>)</h2>
+<ul><li><code>Reveal(worldCenter, radius)</code>, <code>GetState</code> / <code>GetStateAtWorld</code> (Unexplored / Explored / Visible), <code>IsExploredAtWorld</code>, <code>IsVisibleAtWorld</code>, <code>ExploredCount</code>, <code>GridWidth</code>, <code>GridHeight</code>, <code>CellSize</code></li><li>Save/load: <code>SaveExplored()</code> / <code>TryLoadExplored(bytes)</code>, <code>SaveExploredBase64()</code> / <code>TryLoadExploredBase64(text)</code> — see <a href="saving-fog-state.html">Saving Fog State</a>.</li></ul>
+<h2>Views</h2>
+<ul><li><strong><code>MinimapView</code></strong> — <code>FollowTarget</code>, <code>RotationMode</code> (NorthUp / PlayerUp), <code>Shape</code> (Rectangle / Circle), <code>Zoom</code> / <code>MinZoom</code> / <code>MaxZoom</code>, <code>ShowObjectiveArrow</code>, <code>SetZoom(value)</code>, <code>RefreshNow()</code>.</li><li><strong><code>WorldMapView</code></strong> — <code>OpenKey</code> (default M, None disables), <code>Open()</code> / <code>Close()</code> / <code>Toggle()</code>, <code>IsOpen</code>, <code>CenterOnPlayer()</code>, <code>Zoom</code>, <code>ViewOffset</code>.</li><li><strong>Icons</strong> — pooled per view (<code>MarkerIconPool.TotalCreated</code>); membership follows the registry, the category flags, and the fog rules. You never manage icons directly.</li></ul>
+<h2>Editor surface — <code>ByteLura.MiniAtlas.Editor</code></h2>
+<ul><li><strong><code>MiniAtlasSetup</code></strong> — <code>RunSetup()</code>, <code>VerifyInstall(out allPassed)</code> (5 plain-language checks), <code>AddMapToScene()</code>, <code>FitBoundsToSelected(settings)</code>, <code>BackgroundAspectNote(settings)</code>, <code>OpenAtlasTour()</code>, <code>FindSettings()</code>.</li><li><strong><code>MiniAtlasWindow</code></strong> — the home window at <strong>Tools &gt; ByteLura &gt; MiniAtlas Pro</strong>.</li></ul>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Start — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html" class="active">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Quick Start</h1>
+<p>From import to a working map in your own scene. The Atlas Tour sample is the fastest way to see every feature first (guide: <a href="sample-guide.html">Sample Guide — Atlas Tour</a>).</p>
+<h2>1. Run Setup (one click)</h2>
+<p>Open <strong>Tools &gt; ByteLura &gt; MiniAtlas Pro</strong> and click <strong>Run Setup</strong>. It creates <code>Assets/ByteLura/MiniAtlas Pro/</code> in your project:</p>
+<ul><li>a <strong>map settings</strong> asset with five starter categories (Player, Character, Point of Interest, Objective, Marker),</li><li>a <strong>starter grid background</strong> and <strong>starter icon sprites</strong>, generated for you — replace any of them with your own art whenever you like.</li></ul>
+<p>Setup never touches your open scene, and re-running it never overwrites anything. It only fills in what is missing, and reports one plain-language line per item.</p>
+<h2>2. See it working (the Atlas Tour)</h2>
+<p>Click <strong>Open the Atlas Tour</strong> in the same window, then press Play:</p>
+<ul><li>Walk with <strong>WASD</strong> — fog lifts around the capsule.</li><li>The corner minimap tracks the player; the objective sits on its edge as an arrow until it comes into view.</li><li>Press <strong>M</strong> — the world map shows the explored shape of your walk, and nothing you have not explored.</li><li>Walk onto the objective in the far corner — the tour completes, and the hidden cache is revealed on both maps.</li></ul>
+<p>First success takes about two minutes. Everything the tour does, your game does through the same public API.</p>
+<h2>3. Put the map in your scene</h2>
+<ol><li>In the window&#x27;s Map Setup section, click <strong>Add MiniAtlas Map to Scene</strong>.</li><li>Select your ground object, then click <strong>Fit Bounds to Selected</strong>. The map bounds now match your world exactly — this is the calibration step, and it is the only measurement the kit ever asks for.</li><li>Assign your <strong>background art</strong> in the settings. Draw it as a top-down picture of your world inside the bounds. The window checks the aspect for you: if the image aspect and the bounds aspect disagree, the map would stretch, and the window says so in plain words.</li></ol>
+<p>No background art yet? The starter grid background stands in — the map works fully while your art is being made.</p>
+<h2>4. Mark your world</h2>
+<p>Add a <strong>Map Marker</strong> component (Add Component &gt; ByteLura &gt; MiniAtlas Pro &gt; Map Marker) to anything that belongs on the map:</p>
+<ul><li><strong>Category</strong> decides the icon, tint, and which views show it.</li><li><strong>Visibility rule</strong> decides when fog hides it: <em>When Explored</em> for places, <em>When Visible</em> for creatures, <em>Always</em> for the player, <em>Manual</em> for secrets your code reveals.</li><li>On your player, also tick <strong>Reveals Fog</strong> and set the reveal radius.</li></ul>
+<h2>5. Add the views</h2>
+<ul><li><strong>Minimap:</strong> a <code>MinimapView</code> component on a UI panel; set its <em>Follow Target</em> to your player. Full details: <a href="minimap-view.html">Minimap View</a>.</li><li><strong>World map:</strong> a <code>WorldMapView</code> component on a UI object in your canvas; it builds its own panel and opens on M. Details: <a href="world-map-view.html">World Map View</a>.</li></ul>
+<h2>6. Check the install</h2>
+<p>Click <strong>Verify Install</strong> in the window (or <strong>Tools &gt; ByteLura &gt; MiniAtlas Pro &gt; Verify Install</strong>). Five checks in plain language: runtime assembly, an in-editor map self-test (projection center, fog reveal, fog save/load round-trip), settings present, sample present, documentation present. If a line fails, its wording is the diagnosis.</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

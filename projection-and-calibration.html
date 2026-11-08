@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projection and Calibration — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html" class="active">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Projection and Calibration</h1>
+<p>Every map in MiniAtlas Pro is one projection: a pair of world bounds (center + size) on a plane, converting world positions to normalized map positions (0..1 across the bounds) and back exactly.</p>
+<figure class="doc-shot"><img src="images/calibration.jpg" alt="Atlas Tour scene in the Unity editor, ready for bounds calibration"><figcaption>The Atlas Tour scene in the editor: select your ground and fit the map bounds to it in one click.</figcaption></figure>
+<ul><li><strong>Plane XZ</strong> for 3D games: world X runs east across the map, world Z runs north up it.</li><li><strong>Plane XY</strong> for 2D games: world X east, world Y north.</li></ul>
+<h2>The calibration act</h2>
+<p>Calibration is fitting the bounds to your world. It is one click:</p>
+<ol><li>Select your ground object in the scene (anything with a renderer or a collider — the ground plane, a terrain, a tilemap object).</li><li>In the MiniAtlas Pro window, click <strong>Fit Bounds to Selected</strong>.</li></ol>
+<p>The settings&#x27; bounds center and size now match the object&#x27;s bounds on the map plane. The status line reports the fitted size in world units. That is the only measurement the kit ever asks for — there is no second step where you nudge a camera or align a render.</p>
+<h2>The background picture</h2>
+<p>Your background art is a top-down picture of your world drawn inside those bounds. The window compares the image aspect with the bounds aspect and tells you in plain words:</p>
+<ul><li>&quot;Background aspect 1.50 matches bounds aspect 1.50.&quot; — you are set.</li><li>&quot;Background aspect 1.50 does not match bounds aspect 1.33 — the map will stretch. Resize the image or adjust the bounds.&quot; — fix one side or the other before judging the result.</li></ul>
+<p>With no background assigned, the starter grid background from Run Setup stands in. The map — fog, markers, both views — works fully on it while your art is being made.</p>
+<h2>The math (for your own code)</h2>
+<p><code>MapProjection</code> is public and pure:</p>
+<ul><li><code>WorldToNormalized(world)</code> — unclamped: points outside the bounds leave 0..1, so views can detect off-map positions.</li><li><code>WorldToNormalizedClamped(world)</code> — the same point clamped onto the border.</li><li><code>NormalizedToWorld(normalized)</code> — the exact inverse.</li><li><code>Contains(world)</code>, <code>Aspect</code>.</li></ul>
+<p>Degenerate bounds (zero or negative size) are rejected at construction with an argument exception — a setup-time validation, never a silent divide-by-zero in play.</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

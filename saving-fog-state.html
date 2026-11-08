@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saving Fog State — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html" class="active">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Saving Fog State</h1>
+<p>MiniAtlas Pro owns no save system and writes no files. The explored fog state is <strong>data</strong>, exposed through the API in two forms, for whatever save system your game already runs to store.</p>
+<pre><code class="language-csharp">// Save — store the result wherever your save system stores data:
+byte[] fogData = map.Fog.SaveExplored();
+string fogText = map.Fog.SaveExploredBase64();   // text form
+
+// Load — false means wrong shape or corrupt data; the grid is untouched:
+bool ok     = map.Fog.TryLoadExplored(fogData);
+bool okText = map.Fog.TryLoadExploredBase64(fogText);</code></pre>
+<h2>What is saved</h2>
+<p>Explored state only — one byte per cell. Visibility is derived: after a load, the next fog tick (0.1 s) re-stamps visibility from your revealers&#x27; current positions. A malformed string or a wrong-shape payload returns <code>false</code> and changes nothing; loading never throws into your game loop.</p>
+<h2>The format</h2>
+<p>Format v1: a small header (magic <code>MAF1</code>, version byte, grid width and height, cell size) plus the explored bytes. A load whose grid shape or cell size differs from the current map&#x27;s fog is refused cleanly. If you change fog resolution between game versions, rebuild the map with matching settings before loading old data — or treat the old fog as a fresh start; the refusal keeps either choice safe.</p>
+<h2>Round-trip guarantee</h2>
+<p><code>SaveExplored</code> → a fresh grid of the same shape → <code>TryLoadExplored</code> reproduces the explored pattern cell for cell. The Base64 form round-trips identically. Both directions are covered by the shipped test suite and by the in-editor self-test inside Verify Install.</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

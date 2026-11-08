@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Minimap View — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html" class="active">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>The Minimap View</h1>
+<p><code>MinimapView</code> is a component you add to a UI panel on your HUD canvas. It draws, as children of one content holder: your background image, the fog overlay, and the icon layer.</p>
+<figure class="doc-shot"><img src="images/minimap-objective.jpg" alt="Atlas Tour detail showing the board and the tracked objective area"><figcaption>Atlas Tour detail: an off-view objective is indicated at the minimap border until it enters the view.</figcaption></figure>
+<h2>Modes</h2>
+<ul><li><strong>Follow</strong> — set <code>FollowTarget</code> (usually the player). The content scrolls so the target stays centered, clamped so the view never shows outside the map when the content is larger than the view; when the content is smaller than the view, it centers.</li><li><strong>Full World</strong> — leave <code>FollowTarget</code> empty and the whole bounds are fitted into the panel.</li></ul>
+<h2>Rotation</h2>
+<ul><li><strong>North Up</strong> — the content never rotates.</li><li><strong>Player Up</strong> — the content rotates so the followed target&#x27;s heading points up; heading-tracked icons counter-rotate so they keep pointing the way the object faces.</li></ul>
+<h2>Shape and zoom</h2>
+<ul><li><strong>Shape</strong> — <code>Rectangle</code> (the default) or <code>Circle</code> (uses the circle mask sprite Run Setup generates).</li><li><strong>Zoom</strong> — discrete levels scaling the content, clamped between <code>MinZoom</code> and <code>MaxZoom</code>. Changing zoom re-centers on the followed target: the target&#x27;s screen position does not jump.</li></ul>
+<h2>The objective edge arrow</h2>
+<p>While an objective is tracked (<a href="quest-hooks.html">Quest Hooks</a>) and sits outside the visible part of the minimap, an arrow appears at the view border, clamped to the edge with a margin, pointing outward toward it. When the objective enters the view, the arrow hides and the objective&#x27;s own icon takes over. Turn the arrow off with <code>ShowObjectiveArrow</code> if your game points at objectives some other way.</p>
+<h2>Cost</h2>
+<p>Per-frame updates move existing RectTransforms and change no strings, create no objects, and run no LINQ. Icons are pooled per view and reused across markers; marker add/remove is the only structural event, and it is pooled too.</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

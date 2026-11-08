@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honest Limits — What v1 Is Not — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html" class="active">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Honest Limits — What v1 Is Not</h1>
+<p>Everything here is a deliberate v1 boundary, stated so you can plan around it instead of discovering it. This page also ships inside the package as <code>Documentation~/WhatV1IsNot.md</code>.</p>
+<ul><li><strong>No camera-capture or render-texture map mode.</strong> The map picture is a background image you place and calibrate; everything live on it is an icon. If your game needs a literal top-down render of the scene, this kit is not that tool — that is the trade that keeps it pipeline-proof and cheap.</li><li><strong>URP and Built-in only.</strong> HDRP is not supported in v1.</li><li><strong>No built-in save system.</strong> Fog state is exposed as data (bytes or a Base64 string) for your own save system to store. MiniAtlas Pro writes no files and owns no save slots.</li><li><strong>One active map.</strong> v1 supports a single map per scene setup. Multi-map games (one map per level area, streamed worlds) are out of scope.</li><li><strong>No marker clustering, heatmaps, route or path drawing, annotations, or player-placed pins.</strong> Markers are points with categories and rules.</li><li><strong>No networked marker sync.</strong> Markers are local. A networked game feeds its local state in through the public API.</li><li><strong>No procedural map art.</strong> The kit calibrates your background image to your world; it does not draw the world for you.</li><li><strong>No in-world 3D waypoints and no HUD compass.</strong> v1 is the two map views and their icon layer.</li></ul>
+<h2>Claim discipline</h2>
+<ul><li>Fog save/load is a plain feature of the kit. It is never claimed as unique to this product — other minimap tools save fog too.</li><li>The allocation claim is scoped: per-frame view updates allocate nothing. Setup, reveals, and icon acquisition may allocate.</li><li>Tested means tested: Unity 6000.5.4f1 and Unity 2022.3.22f1, on Windows, in the editor. No other platform or device verification is claimed.</li></ul>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>

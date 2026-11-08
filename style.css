@@ -1,0 +1,251 @@
+/* MiniAtlas Pro — documentation site
+   Identity: parchment #EFE3C8 · deep ink-teal #123B3C · brass #B98A2F */
+
+:root {
+  --parchment: #EFE3C8;
+  --parchment-soft: #F7F0DC;
+  --ink: #123B3C;
+  --ink-soft: #2A4A4B;
+  --brass: #B98A2F;
+  --brass-dark: #8F6718;
+  --paper: #FFFDF6;
+  --text: #243233;
+  --muted: #5C6B6A;
+  --rule: #DCD0B2;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--parchment-soft);
+  color: var(--text);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16.5px;
+  line-height: 1.65;
+}
+
+/* ---------- header ---------- */
+
+.site-header {
+  background: var(--ink);
+  color: var(--parchment);
+  padding: 20px 32px 18px;
+  border-bottom: 4px solid var(--brass);
+}
+
+.site-name {
+  font-family: Anton, "Arial Narrow", "Segoe UI", sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.site-tag { font-size: 14.5px; color: #CFC39E; margin-top: 4px; }
+
+/* ---------- layout ---------- */
+
+.layout {
+  display: flex;
+  align-items: stretch;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ---------- sidebar ---------- */
+
+.sidebar {
+  flex: 0 0 264px;
+  background: var(--parchment);
+  border-right: 1px solid var(--rule);
+  padding: 26px 0 40px;
+}
+
+.side-title {
+  font-family: Anton, "Arial Narrow", "Segoe UI", sans-serif;
+  font-size: 19px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 0 24px;
+}
+
+.side-sub {
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass-dark);
+  padding: 0 24px 14px;
+}
+
+.sidebar nav ul { list-style: none; margin: 0; padding: 0; }
+
+.sidebar nav a {
+  display: block;
+  padding: 7px 24px 7px 21px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 15px;
+  border-left: 3px solid transparent;
+}
+
+.sidebar nav a:hover { background: rgba(185, 138, 47, 0.14); color: var(--ink); }
+
+.sidebar nav a.active {
+  border-left-color: var(--brass);
+  background: rgba(185, 138, 47, 0.18);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- content ---------- */
+
+.content {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--paper);
+  padding: 34px 44px 30px;
+}
+
+.content h1 {
+  font-family: Anton, "Arial Narrow", "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--brass);
+}
+
+.content h2 {
+  font-size: 22px;
+  color: var(--ink);
+  margin: 30px 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.content h3 { font-size: 18px; color: var(--ink); margin: 22px 0 8px; }
+
+.content p { margin: 0 0 14px; }
+
+.content a { color: var(--brass-dark); }
+
+.content ul, .content ol { margin: 0 0 14px; padding-left: 26px; }
+.content li { margin-bottom: 6px; }
+.content li > ul, .content li > ol { margin-top: 6px; margin-bottom: 2px; }
+
+.content strong { color: var(--ink); }
+
+/* ---------- code ---------- */
+
+.content code {
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+  font-size: 0.88em;
+  background: var(--parchment);
+  color: var(--ink);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.content pre {
+  background: var(--ink);
+  border-left: 4px solid var(--brass);
+  border-radius: 4px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 0 0 16px;
+}
+
+.content pre code {
+  background: transparent;
+  color: var(--parchment);
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+/* ---------- tables ---------- */
+
+.content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 18px;
+  font-size: 15.5px;
+}
+
+.content th {
+  background: var(--ink);
+  color: var(--parchment);
+  text-align: left;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+.content td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.content tbody tr:nth-child(even) td { background: var(--parchment-soft); }
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  margin-top: 38px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.site-footer a { color: var(--brass-dark); }
+
+/* ---------- documentation images ---------- */
+
+.doc-hero, .doc-shot { margin: 0 0 20px; }
+
+.doc-hero img, .doc-shot img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.doc-hero figcaption, .doc-shot figcaption {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 860px) {
+  .layout { flex-direction: column; }
+  .sidebar {
+    flex: none;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0 14px;
+  }
+  .sidebar nav ul { display: flex; flex-wrap: wrap; padding: 0 12px; }
+  .sidebar nav a {
+    padding: 5px 10px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+  }
+  .sidebar nav a.active { border-bottom-color: var(--brass); background: transparent; }
+  .content { padding: 24px 20px 22px; }
+  .site-header { padding: 16px 20px 14px; }
+  .site-name { font-size: 25px; }
+  .content h1 { font-size: 26px; }
+  .content table { font-size: 14px; }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest Hooks — MiniAtlasApi — MiniAtlas Pro Documentation · ByteLura</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-name">MiniAtlas Pro</div>
+  <div class="site-tag">Minimap, world map and fog of war for Unity — ByteLura</div>
+</header>
+<div class="layout">
+<aside class="sidebar"><div class="side-title">MiniAtlas Pro</div><div class="side-sub">Documentation</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="quick-start.html">Quick Start</a></li><li><a href="projection-and-calibration.html">Projection and Calibration</a></li><li><a href="fog-of-war.html">Fog of War</a></li><li><a href="markers-and-categories.html">Markers and Categories</a></li><li><a href="minimap-view.html">Minimap View</a></li><li><a href="world-map-view.html">World Map View</a></li><li><a href="quest-hooks.html" class="active">Quest Hooks</a></li><li><a href="saving-fog-state.html">Saving Fog State</a></li><li><a href="sample-guide.html">Sample Guide — Atlas Tour</a></li><li><a href="api-summary.html">API Summary</a></li><li><a href="honest-limits.html">Honest Limits</a></li><li><a href="support.html">Support</a></li></ul></nav></aside>
+<main class="content">
+<h1>Quest Hooks — MiniAtlasApi</h1>
+<p>The marker API is the surface a quest system — yours, or any quest asset — drives. Everything is static, in <code>ByteLura.MiniAtlas</code>, and needs no reference to any other product.</p>
+<h2>Track an objective</h2>
+<pre><code class="language-csharp">MiniAtlasApi.SetObjective(marker);
+MiniAtlasApi.ClearObjective();
+MapMarker current = MiniAtlasApi.TrackedObjective; // or null</code></pre>
+<p>A tracked objective gets its category&#x27;s styled icon, and while it is off-view the minimap shows it as an edge arrow at the border. The Atlas Tour sets its objective exactly this way at start.</p>
+<h2>Reveal a secret</h2>
+<pre><code class="language-csharp">MiniAtlasApi.RevealMarker(marker); // same as marker.Reveal()</code></pre>
+<p>Reveals a <em>Manual</em>-rule marker: it appears on both views and stays revealed. The tour&#x27;s HUD button and its completion both call this.</p>
+<h2>Listen</h2>
+<pre><code class="language-csharp">MiniAtlasApi.MarkerDiscovered += m =&gt; { }; // first fog tick that explores a gated marker&#x27;s cell — exactly once per marker
+MiniAtlasApi.MarkerSelected   += m =&gt; { }; // clicked on the world map
+MiniAtlasApi.ObjectiveChanged += m =&gt; { }; // the tracked objective changed</code></pre>
+<p><code>MarkerDiscovered</code> is the hook for &quot;the player found the place your quest sent them to&quot; — it fires for <em>When Explored</em> and <em>Manual</em>-class markers the first time their cell is explored, and never twice for the same marker.</p>
+<h2>Find a marker</h2>
+<pre><code class="language-csharp">MapMarker marker;
+bool found = MiniAtlasApi.TryFindMarker(&quot;objective&quot;, out marker);</code></pre>
+<p>Finds the first registered marker of a category. The registry itself is public too (<code>MiniAtlasRuntime.Registry</code>), as is the active map (<code>MiniAtlasRuntime.ActiveMap</code>).</p>
+<footer class="site-footer">MiniAtlas Pro · ByteLura · Support: <a href="mailto:bytelura@gmail.com">bytelura@gmail.com</a></footer>
+</main>
+</div>
+</body>
+</html>
